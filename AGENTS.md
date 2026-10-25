@@ -31,6 +31,12 @@ Verify design or visual changes in the T3 Preview Browser.
 
 ## Design
 
-Black (obsidian), grays (quartz, ash), red (redstone). Red marks only things you can click.
-One typeface, Archivo variable; the name uses its widest, heaviest cut and is the page's one
-loud element.
+Five viewport-oriented design studies share hardcoded content and project marks.
+`src/designs/layouts.tsx` contains Foundry, Switchboard, Signal, Monolith, and Desktop.
+`src/components/marks.tsx` contains SVG marks and social icons; local company assets live in
+`public/logos/`. Preserve the black/gray/red palette and the distinct compositions.
+
+The fixed bottom-right switcher persists the selection in localStorage and `?design=`.
+Reserve space for it so it never covers project or social links. Fit all content on common
+laptop and phone viewports, while allowing scrolling on unusually short screens or when
+text is enlarged. Never hide content or lock scrolling to fake a viewport fit.

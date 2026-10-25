@@ -1,6 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
 
-import { projects, site, socials } from '@/content/site'
+import {
+  Desktop,
+  designs,
+  Foundry,
+  Masthead,
+  Monolith,
+  Signal,
+  Switchboard,
+  type DesignId,
+} from '@/designs/layouts'
+
+import { site, socials } from '@/content/site'
 
 export const Route = createFileRoute('/')({
   head: () => ({
@@ -34,41 +46,90 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
+const layouts = {
+  foundry: Foundry,
+  switchboard: Switchboard,
+  signal: Signal,
+  monolith: Monolith,
+  desktop: Desktop,
+}
+
+function isDesign(value: string | null): value is DesignId {
+  return designs.some((design) => design.id === value)
+}
+
 function Home() {
+  const [selected, setSelected] = useState<DesignId>('foundry')
+
+  useEffect(() => {
+    function readDesign() {
+      const query = new URLSearchParams(window.location.search).get('design')
+      let saved: string | null = null
+      try {
+        saved = localStorage.getItem('quartzdev-design')
+      } catch {
+        /* Private storage can be unavailable. */
+      }
+      setSelected(isDesign(query) ? query : isDesign(saved) ? saved : 'foundry')
+    }
+    readDesign()
+    window.addEventListener('popstate', readDesign)
+    return () => window.removeEventListener('popstate', readDesign)
+  }, [])
+
+  function selectDesign(id: DesignId) {
+    setSelected(id)
+    const url = new URL(window.location.href)
+    url.searchParams.set('design', id)
+    window.history.replaceState(window.history.state, '', url)
+    try {
+      localStorage.setItem('quartzdev-design', id)
+    } catch {
+      /* The URL still preserves the selection. */
+    }
+  }
+
+  const Layout = layouts[selected]
+  const current = designs.find((design) => design.id === selected)!
+
   return (
-    <main className="page">
-      <header className="hero">
-        <h1 className="name">{site.handle}</h1>
-        <p className="intro">{site.intro}</p>
-        <ul className="socials">
-          {socials.map((link) => (
-            <li key={link.url}>
-              <a href={link.url} target="_blank" rel="noopener noreferrer me">
-                {link.label}
-              </a>
-            </li>
+    <>
+      <main className={`portfolio theme-${selected}`}>
+        <Masthead />
+        <Layout />
+        <footer className="page-footer">
+          <span>© {new Date().getFullYear()} Derek / quartzdev</span>
+          <span>{current.note}</span>
+        </footer>
+      </main>
+      <aside className="design-switcher" aria-label="Design preview controls">
+        <div className="switcher-heading">
+          <span>Design explorer</span>
+          <span aria-live="polite">
+            {current.name} <b>{designs.findIndex((design) => design.id === selected) + 1}/5</b>
+          </span>
+        </div>
+        <div className="design-options" role="group" aria-label="Choose a design">
+          {designs.map((design, index) => (
+            <button
+              key={design.id}
+              type="button"
+              aria-label={`Design ${index + 1}: ${design.name}`}
+              aria-pressed={selected === design.id}
+              title={design.name}
+              onClick={() => selectDesign(design.id)}
+            >
+              <span className={`design-thumbnail thumb-${design.id}`} aria-hidden="true">
+                <i />
+                <i />
+                <i />
+                <i />
+              </span>
+              <span>{index + 1}</span>
+            </button>
           ))}
-        </ul>
-      </header>
-
-      <section className="projects" aria-labelledby="projects-heading">
-        <h2 id="projects-heading">Projects</h2>
-        <ul>
-          {projects.map((project) => (
-            <li key={project.name} className="project">
-              <h3>{project.name}</h3>
-              <p>{project.description}</p>
-              <a href={project.link.url} target="_blank" rel="noopener noreferrer">
-                {project.link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <footer className="footer">
-        <p>© {new Date().getFullYear()} quartzdev</p>
-      </footer>
-    </main>
+        </div>
+      </aside>
+    </>
   )
 }
