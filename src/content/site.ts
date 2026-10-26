@@ -84,6 +84,6 @@ export const projects: Project[] = [
     description: 'Cool tech I build for fun: homelab tools, games, and more.',
     label: 'github.com/QarthO',
     url: 'https://github.com/QarthO?tab=repositories',
-    color: '#d4161c',
+    color: '#edece9',
   },
 ]
