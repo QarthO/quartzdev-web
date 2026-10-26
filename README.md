@@ -36,6 +36,11 @@ One page: a redstone line powered by the quartzdev mark, with each project as a 
 in its brand color. Kiln is featured first. Logos: quartzdev, Kiln, and Marco live in
 `public/logos/`; Modrinth and social icons come from Simple Icons; side projects use the GitHub icon. Font: Geist.
 
+The Marco icon is the exported “m — Square” SVG from
+[Marco PR #20](https://github.com/marco-getbacktobiz/site-getbacktobiz.com-tanstack/pull/20),
+commit `e0824e619adc20d76c624d2a8cd0a96fb15fcc32`. The site and social-card generator share
+`public/logos/marco.svg`.
+
 ## SEO and link previews
 
 Titles, descriptions, Open Graph/Twitter tags, and JSON-LD live in `src/lib/seo.ts`, with the copy
