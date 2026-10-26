@@ -2,12 +2,12 @@ export const site = {
   url: 'https://quartzdev.gg',
   title: 'Derek (QarthO) — software developer in Atlanta',
   description:
-    'Derek (QarthO) builds Kiln, an open-source game server panel, plus Minecraft plugins and websites, from Atlanta.',
+    'Derek (QarthO) builds Kiln, an open-source panel for game servers and more, plus popular Minecraft plugins. Business owner in Atlanta.',
   name: 'Derek',
   handle: 'QarthO',
   role: 'Software developer',
   location: 'Atlanta, Georgia',
-  intro: 'I build software for game servers, Minecraft plugins, and websites for small businesses.',
+  intro: 'I build software for game servers and Minecraft, and I’m a business owner.',
 }
 
 export type SocialId = 'github' | 'x' | 'discord'
@@ -57,7 +57,7 @@ export const projects: Project[] = [
   {
     id: 'modrinth',
     name: 'Minecraft Software',
-    description: 'Paper plugins and GriefPrevention add-ons, published on Modrinth.',
+    description: 'Building and maintaining popular plugins like HuskHomes.',
     label: 'modrinth.com/user/QarthO',
     url: 'https://modrinth.com/user/QarthO',
     color: '#4b9a51',
