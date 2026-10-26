@@ -27,7 +27,7 @@ export function KilnLogo() {
 /** Each project's logo in its own colors. */
 export function ProjectLogo({ id }: { id: ProjectId }) {
   if (id === 'marco') {
-    return <img className="logo" src="/logos/marco.svg" alt="" width="64" height="64" />
+    return <img className="logo" src="/logos/marco.svg?v=m-square" alt="" width="64" height="64" />
   }
   if (id === 'modrinth') {
     return (
