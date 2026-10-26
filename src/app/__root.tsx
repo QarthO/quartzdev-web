@@ -36,6 +36,11 @@ function Shell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          defer
+          src="https://traffic.qdev.gg/kiln-observability.js"
+          data-website-id="1a49d95e-d8ae-4f0a-b2dc-3d47bd3ebb5e"
+        />
       </head>
       <body>
         {children}
