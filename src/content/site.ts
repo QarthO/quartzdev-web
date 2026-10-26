@@ -32,9 +32,9 @@ export type Project = {
 
 export const kiln = {
   name: 'Kiln',
-  tagline: 'Run game servers on hardware you own.',
+  tagline: 'The panel for everything.',
   description:
-    'A free, open-source panel for game servers, apps, Docker, and databases on your own machines.',
+    '100% free, open-source panel for your VPS, Docker, Apps, Game Servers and more, all on your own machines.',
   url: 'https://kiln.site',
   source: 'https://github.com/kiln-site/kiln',
   color: '#e9842b',

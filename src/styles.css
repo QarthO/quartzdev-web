@@ -300,18 +300,37 @@ body {
 
 /* ---------- Kiln, the featured lamp ---------- */
 
+/* Logo beside the name and tagline; the description and buttons run the full width. */
 .kiln {
-  display: flex;
-  gap: clamp(16px, 2vw, 24px);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(12px, 1.6vh, 16px) clamp(16px, 2vw, 24px);
+  align-items: center;
   padding: var(--inset);
   border: 1px solid color-mix(in srgb, var(--brand) 30%, transparent);
   background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 11%, #000), #050505 65%);
 }
 
 .kiln-text {
-  display: grid;
-  gap: 6px;
-  min-width: 0;
+  display: contents;
+}
+
+.kiln .lamp {
+  grid-row: 1 / span 2;
+}
+
+.kiln h2 {
+  align-self: end;
+}
+
+.kiln-tagline {
+  grid-column: 2;
+  align-self: start;
+}
+
+.kiln-description,
+.kiln-actions {
+  grid-column: 1 / -1;
 }
 
 .kiln h2 {
@@ -332,7 +351,6 @@ body {
 }
 
 .kiln-description {
-  max-width: 34rem;
   color: var(--muted);
   font-size: 0.9375rem;
   line-height: 1.45;
@@ -342,7 +360,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 8px;
 }
 
 .button {
@@ -484,29 +501,12 @@ body {
     --inset: 12px;
   }
 
-  /* The logo sits beside the name; the description and buttons use the full width. */
   .kiln {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 10px 14px;
-    align-items: center;
-  }
-
-  .kiln-text {
-    display: contents;
+    gap: 8px 14px;
   }
 
   .kiln-tagline {
-    display: none;
-  }
-
-  .kiln-description,
-  .kiln-actions {
-    grid-column: 1 / -1;
-  }
-
-  .kiln-actions {
-    margin-top: 0;
+    font-size: 0.9375rem;
   }
 
   .kiln-description,

@@ -47,7 +47,7 @@ function Home() {
       <header className="identity">
         <h1 className="name">{site.name}</h1>
         <p className="aka">
-          Known online as <strong>{site.handle}</strong>. Based in Atlanta.
+          aka <strong>{site.handle}</strong>. Based in Atlanta.
         </p>
         <p className="intro">{site.intro}</p>
         <ul className="socials">
