@@ -39,7 +39,7 @@ Verify design or visual changes in the T3 Preview Browser.
 Black, grays, and redstone red (`--dust`), set in Geist, over a faint red glow with film grain. Square corners everywhere. Projects are lamps on
 a redstone line powered by the quartzdev mark (a power button) at the top; on load the signal
 runs down once and each lamp lights up: Kiln orange, Marco green for Marco and Minecraft
-Software, and a bare red lamp for side projects. Kiln is the featured lamp with its
+Software, and redstone red for side projects (a pixel potion). Kiln is the featured lamp with its
 own panel and buttons. "Derek" is the large name; QarthO appears beneath it.
 
 ## Link previews

@@ -84,7 +84,6 @@ export const projects: Project[] = [
     description: 'Cool tech I build for fun: homelab tools, games, and more.',
     label: 'github.com/QarthO',
     url: 'https://github.com/QarthO?tab=repositories',
-    // No logo: a bare redstone lamp, lit in the line's own red.
     color: '#d4161c',
   },
 ]

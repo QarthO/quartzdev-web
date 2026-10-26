@@ -226,6 +226,7 @@ body::before {
 .quartzdev-logo {
   width: calc(var(--bus) * 2 + var(--track));
   height: calc(var(--bus) * 2 + var(--track));
+  border: 2px solid #000;
   box-shadow: 0 0 22px rgb(212 22 28 / 0.35);
 }
 
@@ -313,17 +314,6 @@ body::before {
   animation: lamp-on 260ms ease-out calc(var(--start) + var(--i) * var(--step) + var(--step) * 0.8)
     backwards;
   transition: box-shadow 160ms;
-}
-
-/* A lamp with no logo shows a lit core instead. */
-.lamp:empty::before {
-  width: 42%;
-  height: 42%;
-  content: '';
-  background: var(--brand);
-  box-shadow: 0 0 16px var(--brand);
-  animation: logo-on 260ms ease-out calc(var(--start) + var(--i) * var(--step) + var(--step) * 0.8)
-    backwards;
 }
 
 .lamp .logo {

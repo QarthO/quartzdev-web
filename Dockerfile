@@ -17,6 +17,10 @@ RUN corepack enable pnpm && pnpm build
 FROM base AS runner
 WORKDIR /app
 
+LABEL org.opencontainers.image.source="https://github.com/QarthO/quartzdev-web" \
+  org.opencontainers.image.description="quartzdev.gg, Derek (QarthO)'s portfolio" \
+  org.opencontainers.image.licenses="GPL-3.0"
+
 ENV NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs
