@@ -342,48 +342,38 @@ body::before {
 
 /* ---------- Kiln, the featured lamp ---------- */
 
-/* Logo beside the name and tagline; the description and buttons run the full width. */
 .kiln {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: clamp(12px, 1.6vh, 16px) clamp(16px, 2vw, 24px);
-  align-items: center;
+  gap: clamp(12px, 1.6vh, 16px);
   padding: var(--inset);
   border: 1px solid color-mix(in srgb, var(--brand) 30%, transparent);
   background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 11%, #000), #050505 65%);
 }
 
-.kiln-text {
-  display: contents;
+/* Logo, name, and tagline form one full-width link to kiln.site. */
+.kiln-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: clamp(16px, 2vw, 24px);
+  align-items: center;
+  text-decoration: none;
 }
 
-.kiln .lamp {
+.kiln-head .lamp {
   grid-row: 1 / span 2;
 }
 
 .kiln h2 {
   align-self: end;
-}
-
-.kiln-tagline {
-  grid-column: 2;
-  align-self: start;
-}
-
-.kiln-description,
-.kiln-actions {
-  grid-column: 1 / -1;
-}
-
-.kiln h2 {
   font-size: clamp(1.875rem, 1.4rem + 1.4vw, 2.75rem);
   font-weight: 750;
   letter-spacing: -0.04em;
   line-height: 1;
 }
 
-.kiln h2 a {
-  text-decoration: none;
+.kiln-tagline {
+  align-self: start;
+  margin-top: 10px;
 }
 
 .kiln-tagline {
@@ -441,8 +431,14 @@ body::before {
   background: #f59a4a;
 }
 
-.kiln:hover .lamp {
+.kiln-head:hover .lamp,
+.kiln-head:focus-visible .lamp {
   box-shadow: 0 0 40px color-mix(in srgb, var(--brand) 50%, transparent);
+}
+
+.kiln-head:hover h2 {
+  text-decoration: underline 3px var(--brand);
+  text-underline-offset: 0.12em;
 }
 
 /* ---------- Other projects ---------- */
@@ -556,7 +552,11 @@ body::before {
   }
 
   .kiln {
-    gap: 8px 14px;
+    gap: 8px;
+  }
+
+  .kiln-head {
+    column-gap: 14px;
   }
 
   .kiln-tagline {

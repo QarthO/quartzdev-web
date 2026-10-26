@@ -77,36 +77,27 @@ function Home() {
           <li className="node featured" style={lamp(0, kiln.color)}>
             <Wire />
             <div className="kiln">
-              <span className="lamp">
-                <KilnLogo />
-              </span>
-              <div className="kiln-text">
-                <h2>
-                  <a href={kiln.url} target="_blank" rel="noopener noreferrer">
-                    {kiln.name}
-                  </a>
-                </h2>
+              <a className="kiln-head" href={kiln.url} target="_blank" rel="noopener noreferrer">
+                <span className="lamp">
+                  <KilnLogo />
+                </span>
+                <h2>{kiln.name}</h2>
                 <p className="kiln-tagline">{kiln.tagline}</p>
-                <p className="kiln-description">{kiln.description}</p>
-                <div className="kiln-actions">
-                  <a
-                    className="button button-primary"
-                    href={kiln.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Get Kiln
-                  </a>
-                  <a
-                    className="button"
-                    href={kiln.source}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <SocialIcon id="github" />
-                    Source code
-                  </a>
-                </div>
+              </a>
+              <p className="kiln-description">{kiln.description}</p>
+              <div className="kiln-actions">
+                <a
+                  className="button button-primary"
+                  href={kiln.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Get Kiln
+                </a>
+                <a className="button" href={kiln.source} target="_blank" rel="noopener noreferrer">
+                  <SocialIcon id="github" />
+                  Source code
+                </a>
               </div>
             </div>
           </li>
