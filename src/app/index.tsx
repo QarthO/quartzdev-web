@@ -21,7 +21,7 @@ function Home() {
       <header className="identity">
         <h1 className="name">{site.name}</h1>
         <p className="aka">
-          aka <strong>{site.handle}</strong>. Based in Atlanta.
+          aka <strong>{site.handle}</strong>. Based in the greater Atlanta area
         </p>
         <ul className="traits">
           {site.traits.map((trait) => (

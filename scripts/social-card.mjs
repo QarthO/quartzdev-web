@@ -83,15 +83,16 @@ const capTop = nameBaseline - 0.71 * nameSize
 const logoY = Math.round((capTop + nameBaseline) / 2 - logoSize / 2)
 const name = outline(black, 'Derek', left + logoSize + 30, nameBaseline, nameSize, -0.055)
 
+// Two lines so the location stays clear of the divider.
 const tagSize = 30
-const tagBaseline = 330
+const tagBaseline = 328
 const aka = outline(medium, 'aka ', left, tagBaseline, tagSize)
 const handle = outline(semibold, 'QarthO', aka.end, tagBaseline, tagSize)
-const rest = outline(medium, '. Based in Atlanta.', handle.end, tagBaseline, tagSize)
+const rest = outline(medium, 'Based in the greater Atlanta area', left, tagBaseline + 42, tagSize)
 
 // ---------- Right: what I build ----------
 
-const divider = Math.round(Math.max(name.end + 64, 660))
+const divider = Math.round(Math.max(name.end, rest.end) + 64)
 const listX = divider + 64
 const tile = 56
 const labelSize = 32
