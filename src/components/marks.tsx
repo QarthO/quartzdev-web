@@ -1,86 +1,57 @@
 import { siDiscord, siGithub, siX } from 'simple-icons'
 
-import type { Project } from '@/content/site'
+import type { ProjectId, SocialId } from '@/content/site'
 
-export function QuartzMark({ className = '' }: { className?: string }) {
+const socialPaths: Record<SocialId, string> = {
+  github: siGithub.path,
+  x: siX.path,
+  discord: siDiscord.path,
+}
+
+export function SocialIcon({ id, className = 'icon' }: { id: SocialId; className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 100 100" fill="none" aria-hidden="true">
-      <path
-        d="M28 8h44l20 20v44L72 92H28L8 72V28L28 8Zm9 20-9 9v26l9 9h26l9-9V37l-9-9H37Z"
-        fill="currentColor"
-        fillRule="evenodd"
-      />
-      <path d="m57 57 35 35H68L45 69l12-12Z" fill="var(--accent)" />
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d={socialPaths[id]} />
     </svg>
   )
 }
 
-export function ArrowIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-      <path d="M6 18 18 6M6 6h12v12" />
-    </svg>
-  )
-}
-
-export function LocationIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-      <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
-      <circle cx="12" cy="10" r="2.5" />
-    </svg>
-  )
-}
-
-export function SocialIcon({ name }: { name: 'github' | 'x' | 'discord' }) {
-  const icon = { github: siGithub, x: siX, discord: siDiscord }[name]
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d={icon.path} />
-    </svg>
-  )
-}
-
-export function ProjectMark({ id }: { id: Project['id'] }) {
+/** Kiln and Marco ship as files; they're drawn through a CSS mask so each design can color them. */
+export function ProjectLogo({ id, className = 'logo' }: { id: ProjectId; className?: string }) {
   if (id === 'kiln' || id === 'marco') {
-    return (
-      <img src={`/logos/${id === 'marco' ? 'marco-mark' : id}.svg`} alt="" width="48" height="48" />
-    )
+    return <span className={`${className} logo-file logo-${id}`} aria-hidden="true" />
   }
-  if (id === 'minecraft') {
+  if (id === 'plugins') {
+    // A pickaxe, drawn on the same 12-pixel grid Minecraft items use.
     return (
-      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-        <path d="m32 5 24 13v28L32 59 8 46V18L32 5Z" fill="currentColor" fillOpacity=".12" />
-        <path
-          d="m32 5 24 13v28L32 59 8 46V18L32 5Zm0 0v27m24-14L32 32 8 18m24 14v27"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinejoin="round"
-        />
-        <path d="m20 12 24 14M20 25v15l12 7 12-7V25" stroke="currentColor" strokeWidth="2" />
+      <svg
+        className={className}
+        viewBox="0 0 12 12"
+        fill="currentColor"
+        shapeRendering="crispEdges"
+        aria-hidden="true"
+      >
+        <path d="M3 0h6v1H3zM2 1h8v1H2zM1 2h2v1H1zM9 2h2v1H9zM1 3h1v1H1zM10 3h1v1h-1zM5 2h2v10H5z" />
       </svg>
     )
   }
+  // A keycap with a Q on it.
   return (
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-      <rect x="5" y="12" width="54" height="40" rx="8" fill="currentColor" fillOpacity=".08" />
-      <path d="M14 23h5m6 0h5m6 0h5m6 0h4M14 32h5m6 0h5m6 0h5m6 0h4M17 42h30" />
-      <path d="m37 5-5 9h7l-5 9" stroke="var(--accent)" strokeWidth="3" />
-    </svg>
-  )
-}
-
-export function Facet({ className = '' }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 400 440" fill="none" aria-hidden="true">
-      <path d="m200 10 170 105-20 210-150 105L50 325 30 115 200 10Z" fill="#ed3946" />
-      <path d="m200 10 65 137-65 283-65-283L200 10Z" fill="#ff6870" />
-      <path d="m30 115 105 32L50 325 30 115Z" fill="#a91b2b" />
-      <path d="m370 115-105 32 85 178 20-210Z" fill="#c92032" />
-      <path d="m135 147 65 283L50 325l85-178Z" fill="#d32b3b" />
-      <path d="m265 147-65 283 150-105-85-178Z" fill="#8e1525" />
-      <path d="m200 10-65 137L30 115 200 10Z" fill="#ff858a" />
-      <path d="m200 10 65 137 105-32L200 10Z" fill="#f34b58" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect
+        x="2"
+        y="2.5"
+        width="20"
+        height="19"
+        rx="4.5"
+        stroke="currentColor"
+        strokeWidth="1.75"
+      />
+      <path d="M6.5 17.5h11" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+      <path
+        d="M12 5.5a4.25 4.25 0 1 0 2.6 7.6l1.4 1.4 1.2-1.2-1.4-1.4A4.25 4.25 0 0 0 12 5.5Zm0 1.9a2.35 2.35 0 1 1 0 4.7 2.35 2.35 0 0 1 0-4.7Z"
+        fill="currentColor"
+      />
     </svg>
   )
 }

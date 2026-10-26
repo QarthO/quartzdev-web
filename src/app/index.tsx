@@ -1,20 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
-import {
-  Desktop,
-  designs,
-  Foundry,
-  Masthead,
-  Monolith,
-  Signal,
-  Switchboard,
-  type DesignId,
-} from '@/designs/layouts'
-
+import { Switcher } from '@/components/Switcher'
 import { site, socials } from '@/content/site'
+import { designs, isDesign, type DesignId } from '@/designs'
 
 export const Route = createFileRoute('/')({
+  validateSearch: (search: Record<string, unknown>): { design?: DesignId } =>
+    isDesign(search.design) ? { design: search.design } : {},
   head: () => ({
     meta: [
       { title: site.title },
@@ -33,11 +26,11 @@ export const Route = createFileRoute('/')({
         children: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Person',
-          name: 'Derek',
+          name: site.name,
           alternateName: site.handle,
           url: site.url,
-          jobTitle: 'Software developer',
-          homeLocation: { '@type': 'City', name: 'Atlanta, Georgia' },
+          jobTitle: site.role,
+          homeLocation: { '@type': 'City', name: site.location },
           sameAs: socials.map((link) => link.url),
         }),
       },
@@ -46,90 +39,19 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
-const layouts = {
-  foundry: Foundry,
-  switchboard: Switchboard,
-  signal: Signal,
-  monolith: Monolith,
-  desktop: Desktop,
-}
-
-function isDesign(value: string | null): value is DesignId {
-  return designs.some((design) => design.id === value)
-}
-
 function Home() {
-  const [selected, setSelected] = useState<DesignId>('foundry')
-
-  useEffect(() => {
-    function readDesign() {
-      const query = new URLSearchParams(window.location.search).get('design')
-      let saved: string | null = null
-      try {
-        saved = localStorage.getItem('quartzdev-design')
-      } catch {
-        /* Private storage can be unavailable. */
-      }
-      setSelected(isDesign(query) ? query : isDesign(saved) ? saved : 'foundry')
-    }
-    readDesign()
-    window.addEventListener('popstate', readDesign)
-    return () => window.removeEventListener('popstate', readDesign)
-  }, [])
-
-  function selectDesign(id: DesignId) {
-    setSelected(id)
-    const url = new URL(window.location.href)
-    url.searchParams.set('design', id)
-    window.history.replaceState(window.history.state, '', url)
-    try {
-      localStorage.setItem('quartzdev-design', id)
-    } catch {
-      /* The URL still preserves the selection. */
-    }
-  }
-
-  const Layout = layouts[selected]
-  const current = designs.find((design) => design.id === selected)!
+  const { design = designs[0].id } = Route.useSearch()
+  const navigate = Route.useNavigate()
+  const select = useCallback(
+    (id: DesignId) => navigate({ search: { design: id }, replace: true, resetScroll: false }),
+    [navigate],
+  )
+  const { Component } = designs.find((entry) => entry.id === design)!
 
   return (
     <>
-      <main className={`portfolio theme-${selected}`}>
-        <Masthead />
-        <Layout />
-        <footer className="page-footer">
-          <span>© {new Date().getFullYear()} Derek / quartzdev</span>
-          <span>{current.note}</span>
-        </footer>
-      </main>
-      <aside className="design-switcher" aria-label="Design preview controls">
-        <div className="switcher-heading">
-          <span>Design explorer</span>
-          <span aria-live="polite">
-            {current.name} <b>{designs.findIndex((design) => design.id === selected) + 1}/5</b>
-          </span>
-        </div>
-        <div className="design-options" role="group" aria-label="Choose a design">
-          {designs.map((design, index) => (
-            <button
-              key={design.id}
-              type="button"
-              aria-label={`Design ${index + 1}: ${design.name}`}
-              aria-pressed={selected === design.id}
-              title={design.name}
-              onClick={() => selectDesign(design.id)}
-            >
-              <span className={`design-thumbnail thumb-${design.id}`} aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <i />
-              </span>
-              <span>{index + 1}</span>
-            </button>
-          ))}
-        </div>
-      </aside>
+      <Component />
+      <Switcher current={design} onSelect={select} />
     </>
   )
 }

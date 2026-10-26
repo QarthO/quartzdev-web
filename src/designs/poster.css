@@ -1,0 +1,247 @@
+.d-poster {
+  --pad: clamp(16px, 3.2vw, 44px);
+  /* Advance width of "QarthO" in Big Shoulders Black, in em. */
+  --name-em: 2.62;
+  --text: #ecebe8;
+  --muted: #8f8b86;
+
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  height: 100svh;
+  padding: var(--pad);
+  background: #000;
+  color: var(--text);
+}
+
+.po-name {
+  font-family: 'Big Shoulders', 'Archivo', sans-serif;
+  font-size: calc((100svh - 2 * var(--pad)) / var(--name-em));
+  font-variation-settings: 'opsz' 72;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 0.74;
+  color: var(--tie);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.po-body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: clamp(16px, 3vh, 32px);
+  min-width: 0;
+  padding-bottom: calc(var(--dock) - var(--pad) + 8px);
+}
+
+.po-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 8px clamp(18px, 2.5vw, 36px);
+  align-items: end;
+}
+
+.po-first {
+  font-family: 'Big Shoulders', sans-serif;
+  font-size: clamp(3rem, 7vh, 5.5rem);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 800;
+  line-height: 0.8;
+}
+
+.po-place {
+  display: grid;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.35;
+}
+
+.po-place span {
+  font-variant-numeric: tabular-nums;
+}
+
+.po-socials {
+  display: flex;
+  gap: 6px;
+}
+
+.po-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #161616;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.po-socials .icon {
+  width: 17px;
+  height: 17px;
+}
+
+.po-socials a:hover {
+  background: var(--tie);
+  color: #000;
+}
+
+.po-intro {
+  align-self: center;
+  max-width: 21ch;
+  font-family: 'Big Shoulders', sans-serif;
+  font-size: clamp(2.25rem, min(4.6vw, 7.6vh), 5rem);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.po-projects {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 28px);
+}
+
+.po-projects a {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 6px;
+  height: 100%;
+  padding-top: 16px;
+  border-top: 4px solid #262626;
+  text-decoration: none;
+  transition: border-color 140ms;
+}
+
+.po-logo {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.po-projects strong {
+  font-family: 'Big Shoulders', sans-serif;
+  font-size: clamp(1.625rem, 1.2rem + 1vw, 2.25rem);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 800;
+  line-height: 0.95;
+}
+
+.po-description {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.po-url {
+  margin-top: 4px;
+  color: var(--tie);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.po-projects a:hover {
+  border-color: var(--tie);
+}
+
+.po-projects a:hover .po-logo {
+  color: var(--tie);
+}
+
+@media (max-width: 1180px) {
+  .po-head {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .po-socials {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Portrait screens: the name turns horizontal and spans the width instead. */
+@media (max-width: 900px), (max-aspect-ratio: 1 / 1) {
+  .d-poster {
+    --pad: clamp(16px, 4vw, 32px);
+
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: clamp(14px, 2.4vh, 28px);
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .po-name {
+    font-size: calc((100vw - 2 * var(--pad)) / var(--name-em));
+    line-height: 0.78;
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .po-body {
+    padding-bottom: calc(var(--dock) - var(--pad) + 4px);
+  }
+
+  .po-projects {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .po-intro {
+    align-self: start;
+    max-width: none;
+    font-size: clamp(1.625rem, 7vw, 3.25rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .po-head {
+    gap: 10px 14px;
+  }
+
+  .po-first {
+    font-size: 2.5rem;
+  }
+
+  .po-place {
+    font-size: 0.875rem;
+  }
+
+  .po-socials a {
+    height: 36px;
+    padding: 0 12px;
+  }
+
+  .po-projects {
+    gap: 14px 12px;
+  }
+
+  .po-projects a {
+    padding-top: 10px;
+    border-top-width: 3px;
+  }
+
+  .po-logo {
+    width: 26px;
+    height: 26px;
+    margin-bottom: 2px;
+  }
+
+  .po-projects strong {
+    font-size: 1.5rem;
+  }
+
+  .po-description {
+    font-size: 0.8125rem;
+    line-height: 1.35;
+  }
+
+  .po-url {
+    display: none;
+  }
+}

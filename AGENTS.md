@@ -21,22 +21,27 @@ Verify design or visual changes in the T3 Preview Browser.
 
 ## Layout
 
-| Path                  | Role                                    |
-| --------------------- | --------------------------------------- |
-| `src/content/site.ts` | Intro, social links, projects, SEO copy |
-| `src/app/index.tsx`   | The page                                |
-| `src/app/__root.tsx`  | Document shell, font, 404               |
-| `src/styles.css`      | All styles and color tokens             |
-| `Dockerfile`          | Production image (`srvx`, port 3000)    |
+| Path                          | Role                                                |
+| ----------------------------- | --------------------------------------------------- |
+| `src/content/site.ts`         | Intro, socials, projects, SEO copy                  |
+| `src/designs/`                | The five designs: one `.tsx` and one `.css` each    |
+| `src/components/marks.tsx`    | Project logos and social icons                      |
+| `src/components/Switcher.tsx` | Bottom-right design picker (`?design=`, `[` `]`)    |
+| `src/app/__root.tsx`          | Document shell, font faces, 404                     |
+| `src/styles.css`              | Shared base, switcher, imports each design's CSS    |
+| `public/qartho/`              | QarthO's Minecraft skin renders (from mc-heads.net) |
+| `Dockerfile`                  | Production image (`srvx`, port 3000)                |
 
 ## Design
 
-Five viewport-oriented design studies share hardcoded content and project marks.
-`src/designs/layouts.tsx` contains Foundry, Switchboard, Signal, Monolith, and Desktop.
-`src/components/marks.tsx` contains SVG marks and social icons; local company assets live in
-`public/logos/`. Preserve the black/gray/red palette and the distinct compositions.
+The palette comes from QarthO's skin: black suit, gray, and the tie red (`--tie`). Each design
+is grounded in what Derek builds and keeps its own typeface and tokens under `.d-<name>`:
 
-The fixed bottom-right switcher persists the selection in localStorage and `?design=`.
-Reserve space for it so it never covers project or social links. Fit all content on common
-laptop and phone viewports, while allowing scrolling on unusually short screens or when
-text is enlarged. Never hide content or lock scrolling to fake a viewport fit.
+- **Redstone** (Archivo): projects are lamps on a redstone line; the signal runs once on load.
+- **Console** (Martian Mono): the page boots like a Minecraft server log.
+- **Inventory** (Pixelify Sans): socials in armor slots, projects on the hotbar; keys 1–9 select.
+- **Poster** (Big Shoulders): the name runs the full height in tie red.
+- **Card** (Bricolage Grotesque): a foil player card that tilts to the pointer, projects as a hand.
+
+Every design must fit without scrolling from 1440×900 down to 360×740 and keep clear of the
+switcher (`--dock`). Never hide real content or lock scrolling to fake the fit.

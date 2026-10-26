@@ -20,12 +20,10 @@ docker run -p 3000:3000 quartzdev-web
 
 Health check: `GET /api/health`.
 
-## Design studies
+## Designs
 
-Use the bottom-right explorer to choose Foundry, Switchboard, Signal, Monolith, or Desktop.
-The choice is saved locally and reflected in `?design=foundry` (or the other design IDs).
-An explicit valid URL choice takes priority over the saved preference.
-
-Layouts: `src/designs/layouts.tsx`. Marks and icons: `src/components/marks.tsx`.
-Kiln and Marco marks are monochrome adaptations of the existing project artwork;
-the plugins and qHotkeys use custom SVG illustrations. Social icons come from Simple Icons.
+Five designs share the content in `src/content/site.ts`: Redstone, Console, Inventory, Poster,
+and Card. Pick one with the bottom-right switcher or the `[` and `]` keys; the choice is kept in
+`?design=` (for example `?design=poster`). Each lives in `src/designs/` as a component and a
+stylesheet. Kiln and Marco logos are the existing artwork drawn through a CSS mask; the plugin
+pickaxe and qHotkeys keycap are custom SVGs, and social icons come from Simple Icons.

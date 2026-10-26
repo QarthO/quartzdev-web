@@ -4,53 +4,63 @@ export const site = {
   description:
     'Derek (QarthO) builds game server software, Minecraft plugins, and websites from Atlanta.',
   handle: 'QarthO',
-  intro:
-    'I’m Derek, a software developer in Atlanta. I build tools for running game servers, write Minecraft plugins, and make websites for small businesses.',
+  name: 'Derek',
+  role: 'Software developer',
+  location: 'Atlanta, Georgia',
+  coordinates: '33.749° N, 84.388° W',
+  intro: 'I build software for game servers, Minecraft plugins, and websites for small businesses.',
 }
 
-export type Link = { label: string; url: string; icon?: 'github' | 'x' | 'discord' }
+export type SocialId = 'github' | 'x' | 'discord'
+export type Social = { id: SocialId; label: string; handle: string; url: string }
 
-export const socials: Link[] = [
-  { label: 'GitHub', url: 'https://github.com/QarthO', icon: 'github' },
-  { label: 'X', url: 'https://x.com/quartzdevgg', icon: 'x' },
-  { label: 'Discord', url: 'https://discord.gg/gu76VAtSK5', icon: 'discord' },
+export const socials: Social[] = [
+  { id: 'github', label: 'GitHub', handle: 'QarthO', url: 'https://github.com/QarthO' },
+  { id: 'x', label: 'X', handle: '@quartzdevgg', url: 'https://x.com/quartzdevgg' },
+  { id: 'discord', label: 'Discord', handle: 'quartzdev.gg', url: 'https://discord.gg/gu76VAtSK5' },
 ]
 
+export type ProjectId = 'kiln' | 'marco' | 'plugins' | 'hotkeys'
 export type Project = {
-  id: 'kiln' | 'marco' | 'minecraft' | 'hotkeys'
+  id: ProjectId
   name: string
+  kind: string
   description: string
-  category: string
-  link: Link
+  label: string
+  url: string
 }
 
 export const projects: Project[] = [
   {
     id: 'kiln',
     name: 'Kiln',
-    description: 'Self-hosted game servers, apps & infrastructure.',
-    category: 'Open source',
-    link: { label: 'kiln.site', url: 'https://kiln.site' },
+    kind: 'Open source',
+    description: 'A free, open-source panel for running game servers on hardware you own.',
+    label: 'kiln.site',
+    url: 'https://kiln.site',
   },
   {
     id: 'marco',
     name: 'Marco',
-    description: 'My company. Websites & IT for small businesses.',
-    category: 'My company',
-    link: { label: 'getbacktobiz.com', url: 'https://getbacktobiz.com' },
+    kind: 'My company',
+    description: 'Websites, hosting, and IT support for small businesses.',
+    label: 'getbacktobiz.com',
+    url: 'https://getbacktobiz.com',
   },
   {
-    id: 'minecraft',
+    id: 'plugins',
     name: 'Minecraft plugins',
-    description: 'Paper plugins & GriefPrevention add-ons.',
-    category: 'Game development',
-    link: { label: 'github.com/QarthO', url: 'https://github.com/QarthO?tab=repositories' },
+    kind: 'Plugins',
+    description: 'Paper plugins and GriefPrevention add-ons for survival servers.',
+    label: 'github.com/QarthO',
+    url: 'https://github.com/QarthO?tab=repositories',
   },
   {
     id: 'hotkeys',
     name: 'qHotkeys',
-    description: 'Global shortcuts for Electron apps.',
-    category: 'Developer tools',
-    link: { label: 'github.com/QarthO/qHotkeys', url: 'https://github.com/QarthO/qHotkeys' },
+    kind: 'Library',
+    description: 'Global hotkeys for Electron that leave native shortcuts alone.',
+    label: 'github.com/QarthO/qHotkeys',
+    url: 'https://github.com/QarthO/qHotkeys',
   },
 ]

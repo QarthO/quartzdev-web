@@ -1,0 +1,326 @@
+.d-inventory {
+  --panel: #1c1c1c;
+  --panel-hi: #383838;
+  --panel-lo: #0a0a0a;
+  --slot-bg: #121212;
+  --text: #e8e6e2;
+  --muted: #8f8b86;
+  --slot: clamp(32px, calc((100vw - 64px) / 9.6), 60px);
+  --px: 3px;
+
+  display: grid;
+  place-items: center;
+  padding: 16px 12px var(--dock);
+  background:
+    radial-gradient(ellipse at 50% 40%, rgb(255 26 26 / 0.07), transparent 60%),
+    conic-gradient(#060606 25%, #000 0 50%, #060606 0 75%, #000 0) 0 0 / 32px 32px;
+  color: var(--text);
+  font-family: 'Archivo', system-ui, sans-serif;
+}
+
+.inv-panel {
+  display: grid;
+  gap: clamp(14px, 2.6vh, 24px);
+  width: min(100%, 900px);
+  padding: clamp(14px, 2.6vw, 28px);
+  background: var(--panel);
+  box-shadow:
+    inset var(--px) var(--px) 0 var(--panel-hi),
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--panel-lo),
+    0 0 0 var(--px) #000,
+    0 30px 80px rgb(0 0 0 / 0.8);
+}
+
+.inv-slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--slot);
+  height: var(--slot);
+  padding: calc(var(--slot) * 0.2);
+  border: 0;
+  background: var(--slot-bg);
+  box-shadow:
+    inset var(--px) var(--px) 0 #050505,
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 #2e2e2e;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.inv-slot:hover {
+  background: #262626;
+}
+
+/* ---------- Top: armor slots, player, name ---------- */
+
+.inv-top {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: clamp(10px, 2vw, 24px);
+  align-items: stretch;
+}
+
+.inv-armor {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+}
+
+.inv-armor .inv-slot {
+  padding: calc(var(--slot) * 0.26);
+}
+
+.inv-armor .inv-slot::after {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 8px);
+  z-index: 2;
+  padding: 4px 8px 5px;
+  border: 2px solid #3d0609;
+  background: #0d0203;
+  color: #fff;
+  content: attr(data-tooltip);
+  font:
+    500 15px/1 'Pixelify Sans',
+    monospace;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.inv-armor .inv-slot:hover::after,
+.inv-armor .inv-slot:focus-visible::after {
+  opacity: 1;
+}
+
+.inv-player {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  width: clamp(96px, 17vw, 190px);
+  height: clamp(150px, 31vh, 280px);
+  padding: 10px 0 8px;
+  background: radial-gradient(ellipse at 50% 100%, rgb(255 26 26 / 0.16), transparent 65%), #000;
+  box-shadow:
+    inset var(--px) var(--px) 0 #000,
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 #2e2e2e;
+}
+
+.inv-player img {
+  width: auto;
+  height: 100%;
+  min-height: 0;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.6));
+}
+
+.inv-id {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.inv-name {
+  color: #fff;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: clamp(2.5rem, min(9vw, 13vh), 6.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
+  text-shadow: 0.06em 0.06em 0 #3d0609;
+}
+
+.inv-meta {
+  margin-top: clamp(8px, 1.6vh, 16px);
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.inv-intro {
+  max-width: 34rem;
+  margin-top: clamp(8px, 1.6vh, 16px);
+  font-size: clamp(0.9375rem, 0.85rem + 0.3vw, 1.125rem);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+/* ---------- Selected item, drawn like an item tooltip ---------- */
+
+.inv-detail {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 6px clamp(12px, 2vw, 22px);
+  align-items: center;
+  min-height: clamp(96px, 15vh, 124px);
+  padding: clamp(12px, 2vh, 18px) clamp(14px, 2vw, 22px);
+  border: var(--px) solid transparent;
+  background:
+    linear-gradient(#0d0203, #0d0203) padding-box,
+    linear-gradient(var(--tie), #4a070b) border-box;
+}
+
+.inv-detail-logo {
+  width: clamp(40px, 6vh, 56px);
+  height: clamp(40px, 6vh, 56px);
+  color: #fff;
+}
+
+.inv-detail-text {
+  display: grid;
+  gap: 2px;
+}
+
+.inv-detail h2 {
+  color: #fff;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.inv-kind {
+  color: #ff5a5a;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.9375rem;
+}
+
+.inv-detail p:last-child {
+  color: #bdb9b4;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.inv-button {
+  padding: 10px 16px 11px;
+  background: #2c2c2c;
+  box-shadow:
+    inset 2px 2px 0 #4a4a4a,
+    inset -2px -3px 0 #141414,
+    0 0 0 2px #000;
+  color: #fff;
+  font:
+    500 1rem/1 'Pixelify Sans',
+    monospace;
+  text-decoration: none;
+  white-space: nowrap;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.inv-button:hover {
+  background: #3a0a0d;
+  box-shadow:
+    inset 2px 2px 0 #7a1015,
+    inset -2px -3px 0 #1a0204,
+    0 0 0 2px var(--tie);
+}
+
+.inv-empty {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.0625rem;
+}
+
+/* ---------- Hotbar ---------- */
+
+.inv-hotbar {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.inv-key {
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  color: #4d4d4d;
+  font:
+    500 11px/1 'Pixelify Sans',
+    monospace;
+}
+
+.inv-hotbar .inv-slot[aria-pressed='true'] {
+  z-index: 1;
+  background: #1e0305;
+  box-shadow:
+    0 0 0 var(--px) var(--tie),
+    0 0 0 calc(var(--px) * 2) #000,
+    0 0 24px rgb(255 26 26 / 0.35);
+}
+
+.inv-hotbar .inv-slot[aria-pressed='true'] .inv-key {
+  color: var(--tie);
+}
+
+@media (max-width: 700px) {
+  .d-inventory {
+    --px: 2px;
+    --slot: calc((100vw - 24px - 28px - 32px) / 9);
+    padding-top: 12px;
+  }
+
+  .inv-top {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'player id'
+      'armor armor';
+    row-gap: 12px;
+  }
+
+  .inv-player {
+    grid-area: player;
+    width: 92px;
+    height: 150px;
+  }
+
+  .inv-id {
+    grid-area: id;
+  }
+
+  .inv-armor {
+    grid-area: armor;
+    grid-auto-flow: column;
+    justify-content: start;
+  }
+
+  .inv-armor .inv-slot {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+  }
+
+  .inv-armor .inv-slot::after {
+    display: none;
+  }
+
+  .inv-name {
+    font-size: 2.75rem;
+  }
+
+  .inv-intro {
+    font-size: 0.875rem;
+  }
+
+  .inv-meta {
+    font-size: 0.8125rem;
+  }
+
+  .inv-detail {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .inv-button {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .inv-key {
+    display: none;
+  }
+}
