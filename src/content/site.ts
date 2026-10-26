@@ -31,7 +31,7 @@ export type Project = {
   description: string
   label: string
   url: string
-  /** The brand's own color; its lamp lights up in it. */
+  /** Lamp border, glow, and link color. */
   color: string
 }
 
@@ -60,7 +60,7 @@ export const projects: Project[] = [
     description: 'Paper plugins and GriefPrevention add-ons, published on Modrinth.',
     label: 'modrinth.com/user/QarthO',
     url: 'https://modrinth.com/user/QarthO',
-    color: '#1bd96a',
+    color: '#4b9a51',
   },
   {
     id: 'consulting',
@@ -68,6 +68,6 @@ export const projects: Project[] = [
     description: 'Setup, performance tuning, and plugin work for Minecraft servers.',
     label: 'Ask on Discord',
     url: 'https://discord.gg/gu76VAtSK5',
-    color: '#7fb238',
+    color: '#4b9a51',
   },
 ]
