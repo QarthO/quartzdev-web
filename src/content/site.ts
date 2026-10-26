@@ -7,7 +7,8 @@ export const site = {
   handle: 'QarthO',
   role: 'Software developer',
   location: 'Atlanta, Georgia',
-  intro: 'I build software for game servers and Minecraft, and I’m a business owner.',
+  /** Shown as a 2×2 grid, read row by row. */
+  traits: ['Building cool software', 'Business owner', 'Open source maintainer', 'Lifelong gamer'],
 }
 
 export type SocialId = 'github' | 'x' | 'discord'
@@ -57,7 +58,7 @@ export const projects: Project[] = [
   {
     id: 'modrinth',
     name: 'Minecraft Software',
-    description: 'Building and maintaining popular plugins like HuskHomes.',
+    description: 'Building and maintaining popular projects like HuskHomes.',
     label: 'modrinth.com/user/QarthO',
     url: 'https://modrinth.com/user/QarthO',
     color: '#4b9a51',

@@ -23,7 +23,7 @@ Verify design or visual changes in the T3 Preview Browser.
 
 | Path                       | Role                                                   |
 | -------------------------- | ------------------------------------------------------ |
-| `src/content/site.ts`      | Intro, socials, Kiln, other projects, SEO copy         |
+| `src/content/site.ts`      | Traits, socials, Kiln, other projects, SEO copy        |
 | `src/app/index.tsx`        | The page                                               |
 | `src/app/__root.tsx`       | Document shell, Geist font face, 404                   |
 | `src/components/marks.tsx` | Project logos and social icons                         |

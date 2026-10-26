@@ -49,7 +49,11 @@ function Home() {
         <p className="aka">
           aka <strong>{site.handle}</strong>. Based in Atlanta.
         </p>
-        <p className="intro">{site.intro}</p>
+        <ul className="traits">
+          {site.traits.map((trait) => (
+            <li key={trait}>{trait}</li>
+          ))}
+        </ul>
         <ul className="socials">
           {socials.map((social) => (
             <li key={social.id}>
