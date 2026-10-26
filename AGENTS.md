@@ -25,7 +25,10 @@ Verify design or visual changes in the T3 Preview Browser.
 | -------------------------- | ------------------------------------------------------ |
 | `src/content/site.ts`      | Traits, socials, Kiln, other projects, SEO copy        |
 | `src/app/index.tsx`        | The page                                               |
-| `src/app/__root.tsx`       | Document shell, Geist font face, 404                   |
+| `src/app/__root.tsx`       | Document shell, Geist font face, icons, 404            |
+| `src/lib/seo.ts`           | Title, meta, Open Graph/Twitter tags, JSON-LD          |
+| `src/app/sitemap[.]xml.ts` | Sitemap (`robots[.]txt.ts` points to it)               |
+| `scripts/social-card.mjs`  | Builds `public/social-card.*` and PNG icons            |
 | `src/components/marks.tsx` | Project logos and social icons                         |
 | `src/styles.css`           | All styles and tokens                                  |
 | `public/logos/`            | quartzdev, Kiln, and Marco marks in their brand colors |
@@ -38,6 +41,12 @@ a redstone line powered by the quartzdev mark (a power button) at the top; on lo
 runs down once and each lamp lights up: Kiln orange, Marco green for Marco and Minecraft
 Software, and a bare red lamp for side projects. Kiln is the featured lamp with its
 own panel and buttons. "Derek" is the large name; QarthO appears beneath it.
+
+## Link previews
+
+The embed image is a short 1200×480 card (`summary_large_image`), styled after the Kiln and
+Marco cards. After changing names, logos, or projects, run `pnpm social-card` and commit the
+regenerated `public/social-card.svg`, `social-card.png`, and icon PNGs.
 
 Content must fit without scrolling from 1440×900 down to 360×740. Never hide real content or
 lock scrolling to fake the fit.

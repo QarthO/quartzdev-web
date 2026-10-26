@@ -21,6 +21,9 @@ export const Route = createRootRoute({
       { rel: 'preload', as: 'font', type: 'font/woff2', href: geist, crossOrigin: 'anonymous' },
       { rel: 'stylesheet', href: styles },
       { rel: 'icon', type: 'image/svg+xml', href: '/logos/quartzdev.svg' },
+      { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/icon-192.png' },
+      { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+      { rel: 'manifest', href: '/site.webmanifest' },
     ],
     styles: [{ children: fontFace }],
   }),
@@ -45,9 +48,12 @@ function Shell({ children }: { children: React.ReactNode }) {
 export function NotFound() {
   return (
     <main className="missing">
+      {/* React hoists these into <head>; the home route's tags don't apply here. */}
+      <title>{`Page not found | ${site.siteName}`}</title>
+      <meta name="robots" content="noindex" />
       <p className="missing-code">404</p>
       <h1>There’s no page at this address.</h1>
-      <a href="/">Go to {site.url.replace('https://', '')}</a>
+      <a href="/">Go to {site.siteName}</a>
     </main>
   )
 }

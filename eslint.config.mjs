@@ -26,4 +26,8 @@ export default [
       ],
     },
   },
+  {
+    files: ['scripts/**'],
+    languageOptions: { globals: { console: 'readonly', process: 'readonly' } },
+  },
 ]

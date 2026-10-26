@@ -2,36 +2,10 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { KilnLogo, ProjectLogo, QuartzdevLogo, SocialIcon } from '@/components/marks'
 import { kiln, projects, site, socials } from '@/content/site'
+import { homeHead } from '@/lib/seo'
 
 export const Route = createFileRoute('/')({
-  head: () => ({
-    meta: [
-      { title: site.title },
-      { name: 'description', content: site.description },
-      { property: 'og:title', content: site.title },
-      { property: 'og:description', content: site.description },
-      { property: 'og:type', content: 'profile' },
-      { property: 'og:url', content: site.url },
-      { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:site', content: '@quartzdevgg' },
-    ],
-    links: [{ rel: 'canonical', href: site.url }],
-    scripts: [
-      {
-        type: 'application/ld+json',
-        children: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Person',
-          name: site.name,
-          alternateName: site.handle,
-          url: site.url,
-          jobTitle: site.role,
-          homeLocation: { '@type': 'City', name: site.location },
-          sameAs: socials.map((link) => link.url),
-        }),
-      },
-    ],
-  }),
+  head: homeHead,
   component: Home,
 })
 

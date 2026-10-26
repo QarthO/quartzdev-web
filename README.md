@@ -25,3 +25,13 @@ Health check: `GET /api/health`.
 One page: a redstone line powered by the quartzdev mark, with each project as a lamp that lights
 in its brand color. Kiln is featured first. Logos: quartzdev, Kiln, and Marco live in
 `public/logos/`; Modrinth and social icons come from Simple Icons; side projects use a bare lamp. Font: Geist.
+
+## SEO and link previews
+
+Titles, descriptions, Open Graph/Twitter tags, and JSON-LD live in `src/lib/seo.ts`, with the copy
+in `src/content/site.ts`. `/sitemap.xml` and `/robots.txt` are server routes. The 1200×480 preview
+card and the app icons are generated from the brand SVGs:
+
+```sh
+pnpm social-card
+```
