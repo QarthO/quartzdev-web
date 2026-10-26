@@ -83,14 +83,9 @@ const capTop = nameBaseline - 0.71 * nameSize
 const logoY = Math.round((capTop + nameBaseline) / 2 - logoSize / 2)
 const name = outline(black, 'Derek', left + logoSize + 30, nameBaseline, nameSize, -0.055)
 
-const tagSize = 30
-const tagBaseline = 326
-const aka = outline(medium, 'aka ', left, tagBaseline, tagSize)
-const handle = outline(semibold, 'QarthO', aka.end, tagBaseline, tagSize)
-
-// Handles, each with its platform icon, lined up with "and much more…" on the right.
+// Handles, each with its platform icon, under the name.
 const handleSize = 24
-const handleBaseline = 392
+const handleBaseline = 326
 const iconSize = 22
 let handleX = left
 const handles = [
@@ -159,8 +154,6 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.
 <rect width="${W}" height="${H}" fill="url(#grid)"/>
 ${inline('logos/quartzdev.svg', left, logoY, logoSize)}
 <path fill="${colors.ink}" d="${name.d}"/>
-<path fill="${colors.muted}" d="${aka.d}"/>
-<path fill="${colors.ink}" d="${handle.d}"/>
 ${handles
   .map(
     (item) =>
