@@ -1,4 +1,4 @@
-import { siDiscord, siGithub, siX } from 'simple-icons'
+import { siDiscord, siGithub, siModrinth, siX } from 'simple-icons'
 
 import type { ProjectId, SocialId } from '@/content/site'
 
@@ -8,49 +8,45 @@ const socialPaths: Record<SocialId, string> = {
   discord: siDiscord.path,
 }
 
-export function SocialIcon({ id, className = 'icon' }: { id: SocialId; className?: string }) {
+export function SocialIcon({ id }: { id: SocialId }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg className="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d={socialPaths[id]} />
     </svg>
   )
 }
 
-/** Kiln and Marco ship as files; they're drawn through a CSS mask so each design can color them. */
-export function ProjectLogo({ id, className = 'logo' }: { id: ProjectId; className?: string }) {
-  if (id === 'kiln' || id === 'marco') {
-    return <span className={`${className} logo-file logo-${id}`} aria-hidden="true" />
+export function QuartzdevLogo({ className = 'quartzdev-logo' }: { className?: string }) {
+  return <img className={className} src="/logos/quartzdev.svg" alt="" width="40" height="40" />
+}
+
+export function KilnLogo() {
+  return <img className="logo" src="/logos/kiln.svg" alt="" width="64" height="64" />
+}
+
+/** Each project's logo in its own colors. */
+export function ProjectLogo({ id }: { id: ProjectId }) {
+  if (id === 'marco') {
+    return <img className="logo" src="/logos/marco.svg" alt="" width="64" height="64" />
   }
-  if (id === 'plugins') {
-    // A pickaxe, drawn on the same 12-pixel grid Minecraft items use.
+  if (id === 'modrinth') {
     return (
-      <svg
-        className={className}
-        viewBox="0 0 12 12"
-        fill="currentColor"
-        shapeRendering="crispEdges"
-        aria-hidden="true"
-      >
-        <path d="M3 0h6v1H3zM2 1h8v1H2zM1 2h2v1H1zM9 2h2v1H9zM1 3h1v1H1zM10 3h1v1h-1zM5 2h2v10H5z" />
+      <svg className="logo" viewBox="0 0 24 24" fill="#1bd96a" aria-hidden="true">
+        <path d={siModrinth.path} />
       </svg>
     )
   }
-  // A keycap with a Q on it.
+  // A Minecraft grass block, drawn in the game's own greens and dirt browns.
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect
-        x="2"
-        y="2.5"
-        width="20"
-        height="19"
-        rx="4.5"
-        stroke="currentColor"
-        strokeWidth="1.75"
-      />
-      <path d="M6.5 17.5h11" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+    <svg className="logo" viewBox="0 0 16 16" shapeRendering="crispEdges" aria-hidden="true">
+      <path d="M8 1 15 4.5 8 8 1 4.5Z" fill="#7fb238" />
+      <path d="M1 4.5 8 8v7l-7-3.5Z" fill="#8b5a33" />
+      <path d="M15 4.5 8 8v7l7-3.5Z" fill="#6b4426" />
+      <path d="M1 4.5 8 8v2L1 6.5Z" fill="#6aa83a" />
+      <path d="M15 4.5 8 8v2l7-3.5Z" fill="#558a2c" />
       <path
-        d="M12 5.5a4.25 4.25 0 1 0 2.6 7.6l1.4 1.4 1.2-1.2-1.4-1.4A4.25 4.25 0 0 0 12 5.5Zm0 1.9a2.35 2.35 0 1 1 0 4.7 2.35 2.35 0 0 1 0-4.7Z"
-        fill="currentColor"
+        d="M3 8.5h1v1H3zM5 10h1v1H5zM2 11h1v1H2zM10 11h1v1h-1zM12 9h1v1h-1zM13 11.5h1v1h-1z"
+        fill="#5c3a20"
       />
     </svg>
   )

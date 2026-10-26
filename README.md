@@ -20,10 +20,9 @@ docker run -p 3000:3000 quartzdev-web
 
 Health check: `GET /api/health`.
 
-## Designs
+## Design
 
-Five designs share the content in `src/content/site.ts`: Redstone, Console, Inventory, Poster,
-and Card. Pick one with the bottom-right switcher or the `[` and `]` keys; the choice is kept in
-`?design=` (for example `?design=poster`). Each lives in `src/designs/` as a component and a
-stylesheet. Kiln and Marco logos are the existing artwork drawn through a CSS mask; the plugin
-pickaxe and qHotkeys keycap are custom SVGs, and social icons come from Simple Icons.
+One page: a redstone line powered by the quartzdev mark, with each project as a lamp that lights
+in its brand color. Kiln is featured first. Logos: quartzdev, Kiln, and Marco live in
+`public/logos/`; Modrinth and social icons come from Simple Icons; the Minecraft grass block is a
+small inline SVG. Font: Geist.

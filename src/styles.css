@@ -1,21 +1,31 @@
-@import './designs/redstone.css';
-@import './designs/console.css';
-@import './designs/inventory.css';
-@import './designs/poster.css';
-@import './designs/card.css';
-
-/* Shared by every design. Each design scopes its own tokens under `.d-<name>`. */
+/*
+ * Black, grays, and redstone red. Projects are lamps on a redstone line; each lamp lights in
+ * its own brand color once the signal reaches it.
+ */
 :root {
-  /* QarthO's skin: black suit, white collar, this red tie. */
-  --tie: #ff1a1a;
-  /* Room kept clear for the design switcher. */
-  --dock: 72px;
+  --ink: #edece9;
+  --muted: #8f8b86;
+  --line: #242424;
+  --dust-off: #2a0b0d;
+  --dust: #ff1a1a;
+  --glow: rgb(255 26 26 / 0.5);
+
+  --pad-x: clamp(20px, 5vw, 72px);
+  --pad-y: clamp(20px, 5vh, 56px);
+  --track: 4px;
+  /* Horizontal position of the redstone line inside the circuit. */
+  --bus: 18px;
+  --rail: 60px;
+  --gap: clamp(12px, 2.6vh, 26px);
+  --lamp-sm: clamp(46px, 6.6vh, 60px);
+  --lamp-lg: clamp(64px, 11vh, 104px);
+  --start: 250ms;
+  --step: 260ms;
 
   color-scheme: dark;
   background: #000;
-  color: #ecebe8;
-  font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif;
-  font-stretch: 100%;
+  color: var(--ink);
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -32,10 +42,8 @@ body {
 
 h1,
 h2,
-h3,
 p,
-ul,
-figure {
+ul {
   margin: 0;
   padding: 0;
 }
@@ -53,126 +61,468 @@ img {
 }
 
 :focus-visible {
-  outline: 2px solid var(--tie);
+  outline: 2px solid var(--dust);
   outline-offset: 3px;
 }
 
-.design {
-  position: relative;
-  min-height: 100svh;
-  overflow-x: clip;
-}
-
-.logo,
-.icon {
+.icon,
+.logo {
   display: block;
-  flex: none;
   width: 100%;
   height: 100%;
 }
 
-.logo-file {
-  background: currentColor;
-  mask: center / contain no-repeat;
-}
+/* ---------- Page ---------- */
 
-.logo-kiln {
-  mask-image: url(/logos/kiln.svg);
-}
-
-.logo-marco {
-  mask-image: url(/logos/marco-mark.svg);
-}
-
-.pixelated {
-  image-rendering: pixelated;
-}
-
-/* ---------- Design switcher ---------- */
-
-.switcher {
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-  z-index: 100;
-  display: flex;
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(32px, 6vw, 96px);
   align-items: center;
-  gap: 10px;
-  padding: 5px;
-  border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: 14px;
-  background: rgb(20 20 20 / 0.82);
-  box-shadow: 0 12px 32px rgb(0 0 0 / 0.5);
-  backdrop-filter: blur(14px) saturate(140%);
-  color: #a8a6a2;
-  font:
-    500 13px/1 'Archivo',
-    system-ui,
-    sans-serif;
-  font-stretch: 100%;
+  width: min(100%, 1320px);
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: var(--pad-y) var(--pad-x);
 }
 
-.switcher ul {
-  display: flex;
-  gap: 2px;
+body {
+  background:
+    linear-gradient(rgb(255 255 255 / 0.026) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgb(255 255 255 / 0.026) 1px, transparent 1px) 0 0 / 32px 32px,
+    #000;
 }
 
-.switcher button {
+/* ---------- Identity ---------- */
+
+.name {
+  margin-left: -0.06em;
+  font-size: clamp(4.5rem, min(13vw, 24vh), 11.5rem);
+  font-weight: 800;
+  letter-spacing: -0.065em;
+  line-height: 0.82;
+}
+
+.aka {
+  margin-top: clamp(16px, 3vh, 28px);
+  color: var(--muted);
+  font-size: clamp(1rem, 0.9rem + 0.3vw, 1.1875rem);
+}
+
+.aka strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.intro {
+  max-width: 30rem;
+  margin-top: clamp(10px, 2vh, 18px);
+  color: #c3bfba;
+  font-size: clamp(1.125rem, 0.95rem + 0.5vw, 1.375rem);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.socials {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: clamp(18px, 3.6vh, 32px);
+}
+
+.socials a {
+  display: inline-flex;
   align-items: center;
-  gap: 7px;
-  height: 34px;
-  padding: 0 11px;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
+  gap: 9px;
+  height: 40px;
+  padding: 0 14px 0 12px;
+  border: 1px solid #2a2a2a;
+  background: #0a0a0a;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    border-color 140ms,
+    color 140ms;
 }
 
-.switcher button:hover {
-  background: rgb(255 255 255 / 0.07);
+.socials .icon {
+  width: 17px;
+  height: 17px;
+}
+
+.socials a:hover {
+  border-color: var(--dust);
   color: #fff;
 }
 
-.switcher button[aria-pressed='true'] {
-  background: #ecebe8;
-  color: #000;
+/* ---------- Circuit ---------- */
+
+.circuit {
+  position: relative;
 }
 
-.switcher-number {
-  font-variant-numeric: tabular-nums;
-  opacity: 0.5;
+/* The power switch at the top of the line: the quartzdev mark is a power button. */
+.switch {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
 }
 
-.switcher-current {
-  display: none;
+.quartzdev-logo {
+  width: calc(var(--bus) * 2 + var(--track));
+  height: calc(var(--bus) * 2 + var(--track));
+  box-shadow: 0 0 22px rgb(255 26 26 / 0.35);
 }
+
+.circuit ul {
+  display: grid;
+  gap: var(--gap);
+  padding-left: var(--rail);
+}
+
+.node {
+  --lamp: var(--lamp-sm);
+  /* Space between the top of the row and the lamp. */
+  --inset: 0px;
+
+  position: relative;
+}
+
+.node.featured {
+  --lamp: var(--lamp-lg);
+  --inset: clamp(14px, 2.4vh, 22px);
+}
+
+/* Each row draws its stretch of line: down from the row above, then across to its lamp. */
+.wire-down,
+.wire-across {
+  position: absolute;
+  left: calc(var(--bus) - var(--rail));
+  background: var(--dust-off);
+}
+
+.wire-down {
+  top: calc(-1 * var(--gap));
+  width: var(--track);
+  height: calc(100% + var(--gap));
+}
+
+.node:first-child .wire-down {
+  top: -10px;
+  height: calc(100% + 10px);
+}
+
+.node:last-child .wire-down {
+  height: calc(var(--gap) + var(--inset) + var(--lamp) / 2 + var(--track) / 2);
+}
+
+.wire-across {
+  top: calc(var(--inset) + var(--lamp) / 2 - var(--track) / 2);
+  width: calc(var(--rail) - var(--bus) + var(--inset));
+  height: var(--track);
+}
+
+.wire-down::after,
+.wire-across::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: var(--dust);
+  box-shadow: 0 0 10px var(--glow);
+}
+
+.wire-down::after {
+  transform-origin: top;
+  animation: run-down calc(var(--step) * 0.7) linear calc(var(--start) + var(--i) * var(--step))
+    both;
+}
+
+/* The line keeps running down past a lamp, so only the last row's stretch ends there. */
+.wire-across::after {
+  transform-origin: left;
+  animation: run-across calc(var(--step) * 0.4) linear
+    calc(var(--start) + var(--i) * var(--step) + var(--step) * 0.45) both;
+}
+
+.lamp {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--lamp);
+  height: var(--lamp);
+  padding: calc(var(--lamp) * 0.2);
+  border: 2px solid color-mix(in srgb, var(--brand) 75%, transparent);
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand) 22%, #000), #070707 75%);
+  box-shadow: 0 0 26px color-mix(in srgb, var(--brand) 32%, transparent);
+  /* Lit is the resting state; the animation only holds it dark until the signal arrives. */
+  animation: lamp-on 260ms ease-out calc(var(--start) + var(--i) * var(--step) + var(--step) * 0.8)
+    backwards;
+  transition: box-shadow 160ms;
+}
+
+.lamp .logo {
+  animation: logo-on 260ms ease-out calc(var(--start) + var(--i) * var(--step) + var(--step) * 0.8)
+    backwards;
+}
+
+@keyframes run-down {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes run-across {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes lamp-on {
+  from {
+    border-color: #262626;
+    background: #0c0c0c;
+    box-shadow: none;
+  }
+}
+
+@keyframes logo-on {
+  from {
+    filter: grayscale(1) brightness(0.35);
+  }
+}
+
+/* ---------- Kiln, the featured lamp ---------- */
+
+.kiln {
+  display: flex;
+  gap: clamp(16px, 2vw, 24px);
+  padding: var(--inset);
+  border: 1px solid color-mix(in srgb, var(--brand) 30%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 11%, #000), #050505 65%);
+}
+
+.kiln-text {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.kiln h2 {
+  font-size: clamp(1.875rem, 1.4rem + 1.4vw, 2.75rem);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.kiln h2 a {
+  text-decoration: none;
+}
+
+.kiln-tagline {
+  font-size: clamp(1.0625rem, 0.95rem + 0.35vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.kiln-description {
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.kiln-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #333;
+  background: #0a0a0a;
+  font-size: 0.9375rem;
+  font-weight: 550;
+  text-decoration: none;
+  transition:
+    background 140ms,
+    border-color 140ms;
+}
+
+.button .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.button:hover {
+  border-color: #555;
+  background: #151515;
+}
+
+.button-primary {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: #140800;
+}
+
+.button-primary:hover {
+  border-color: #f59a4a;
+  background: #f59a4a;
+}
+
+.kiln:hover .lamp {
+  box-shadow: 0 0 40px color-mix(in srgb, var(--brand) 50%, transparent);
+}
+
+/* ---------- Other projects ---------- */
+
+.project {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(14px, 1.6vw, 20px);
+  text-decoration: none;
+}
+
+.project-text {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.project-text strong {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.project-description {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.project-url {
+  color: color-mix(in srgb, var(--brand) 85%, #fff);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.project:hover .lamp,
+.project:focus-visible .lamp {
+  box-shadow: 0 0 40px color-mix(in srgb, var(--brand) 55%, transparent);
+}
+
+.project:hover strong {
+  text-decoration: underline 2px var(--brand);
+  text-underline-offset: 0.2em;
+}
+
+/* ---------- Narrow screens: one column ---------- */
 
 @media (max-width: 900px) {
-  .switcher {
-    padding-left: 14px;
+  :root {
+    --rail: 40px;
+    --bus: 15px;
+    --gap: 12px;
+    --lamp-sm: 40px;
+    --lamp-lg: 52px;
   }
 
-  .switcher-current {
-    display: block;
-    min-width: 5.5em;
-    color: #fff;
+  .page {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    align-content: start;
+    padding-top: 20px;
+    padding-bottom: 16px;
   }
 
-  .switcher-name {
+  .name {
+    font-size: min(22vw, 9rem);
+  }
+
+  .aka {
+    margin-top: 12px;
+    font-size: 0.875rem;
+  }
+
+  .intro {
+    margin-top: 8px;
+    font-size: 1rem;
+  }
+
+  .project {
+    gap: 12px;
+  }
+
+  .project-text strong {
+    font-size: 1rem;
+  }
+
+  .socials {
+    margin-top: 16px;
+  }
+
+  .socials a {
+    height: 36px;
+  }
+
+  .node.featured {
+    --inset: 12px;
+  }
+
+  /* The logo sits beside the name; the description and buttons use the full width. */
+  .kiln {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px 14px;
+    align-items: center;
+  }
+
+  .kiln-text {
+    display: contents;
+  }
+
+  .kiln-tagline {
     display: none;
   }
 
-  .switcher button {
-    justify-content: center;
-    width: 34px;
-    padding: 0;
+  .kiln-description,
+  .kiln-actions {
+    grid-column: 1 / -1;
   }
 
-  .switcher-number {
-    opacity: 1;
+  .kiln-actions {
+    margin-top: 0;
+  }
+
+  .kiln-description,
+  .project-description {
+    font-size: 0.875rem;
+    line-height: 1.35;
+  }
+
+  .button {
+    height: 34px;
+    padding: 0 12px;
+    font-size: 0.875rem;
+  }
+
+  .project-url {
+    display: none;
   }
 }
 
@@ -183,14 +533,14 @@ img {
   align-content: center;
   gap: 1rem;
   min-height: 100svh;
-  padding: 2rem clamp(1.25rem, 6vw, 5rem);
+  padding: 2rem var(--pad-x);
 }
 
 .missing-code {
-  color: var(--tie);
+  color: var(--dust);
   font-size: clamp(6rem, 30vw, 16rem);
-  font-stretch: 125%;
-  font-weight: 900;
+  font-weight: 800;
+  letter-spacing: -0.06em;
   line-height: 0.8;
 }
 
@@ -201,7 +551,7 @@ img {
 
 .missing a {
   justify-self: start;
-  text-decoration-color: var(--tie);
+  text-decoration-color: var(--dust);
   text-underline-offset: 0.25em;
 }
 
@@ -211,7 +561,6 @@ img {
   *::after {
     animation-duration: 1ms !important;
     animation-delay: 0ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
   }
 }

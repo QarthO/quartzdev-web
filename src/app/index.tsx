@@ -1,13 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useCallback } from 'react'
 
-import { Switcher } from '@/components/Switcher'
-import { site, socials } from '@/content/site'
-import { designs, isDesign, type DesignId } from '@/designs'
+import { KilnLogo, ProjectLogo, QuartzdevLogo, SocialIcon } from '@/components/marks'
+import { kiln, projects, site, socials } from '@/content/site'
 
 export const Route = createFileRoute('/')({
-  validateSearch: (search: Record<string, unknown>): { design?: DesignId } =>
-    isDesign(search.design) ? { design: search.design } : {},
   head: () => ({
     meta: [
       { title: site.title },
@@ -39,19 +35,101 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
-function Home() {
-  const { design = designs[0].id } = Route.useSearch()
-  const navigate = Route.useNavigate()
-  const select = useCallback(
-    (id: DesignId) => navigate({ search: { design: id }, replace: true, resetScroll: false }),
-    [navigate],
-  )
-  const { Component } = designs.find((entry) => entry.id === design)!
+const lamp = (i: number, color: string) => ({ '--i': i, '--brand': color }) as React.CSSProperties
 
+/**
+ * Projects are lamps on one redstone line, powered by the quartzdev switch at the top.
+ * On load the signal runs down the line once and each lamp lights in its brand's color.
+ */
+function Home() {
   return (
-    <>
-      <Component />
-      <Switcher current={design} onSelect={select} />
-    </>
+    <main className="page">
+      <header className="identity">
+        <h1 className="name">{site.name}</h1>
+        <p className="aka">
+          Known online as <strong>{site.handle}</strong>. Based in Atlanta.
+        </p>
+        <p className="intro">{site.intro}</p>
+        <ul className="socials">
+          {socials.map((social) => (
+            <li key={social.id}>
+              <a href={social.url} target="_blank" rel="noopener noreferrer me">
+                <SocialIcon id={social.id} />
+                {social.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </header>
+
+      <section className="circuit" aria-label="What I’m building">
+        <a className="switch" href="/" aria-label="quartzdev.gg">
+          <QuartzdevLogo />
+          <span>quartzdev.gg</span>
+        </a>
+        <ul>
+          <li className="node featured" style={lamp(0, kiln.color)}>
+            <Wire />
+            <div className="kiln">
+              <span className="lamp">
+                <KilnLogo />
+              </span>
+              <div className="kiln-text">
+                <h2>
+                  <a href={kiln.url} target="_blank" rel="noopener noreferrer">
+                    {kiln.name}
+                  </a>
+                </h2>
+                <p className="kiln-tagline">{kiln.tagline}</p>
+                <p className="kiln-description">{kiln.description}</p>
+                <div className="kiln-actions">
+                  <a
+                    className="button button-primary"
+                    href={kiln.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Get Kiln
+                  </a>
+                  <a
+                    className="button"
+                    href={kiln.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SocialIcon id="github" />
+                    Source code
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {projects.map((project, i) => (
+            <li key={project.id} className="node" style={lamp(i + 1, project.color)}>
+              <Wire />
+              <a className="project" href={project.url} target="_blank" rel="noopener noreferrer">
+                <span className="lamp">
+                  <ProjectLogo id={project.id} />
+                </span>
+                <span className="project-text">
+                  <strong>{project.name}</strong>
+                  <span className="project-description">{project.description}</span>
+                  <span className="project-url">{project.label}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </main>
+  )
+}
+
+function Wire() {
+  return (
+    <span className="wire" aria-hidden="true">
+      <i className="wire-down" />
+      <i className="wire-across" />
+    </span>
   )
 }
