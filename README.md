@@ -45,3 +45,13 @@ card and the app icons are generated from the brand SVGs:
 ```sh
 pnpm social-card
 ```
+
+## Outbound links
+
+Change external destinations only in `src/content/links.ts`. All project and social links on
+the page use local redirects: `/github`, `/x`, `/discord`, `/modrinth`, `/marco`, `/kiln`,
+`/kiln-source`, and `/projects` (the GitHub repositories tab).
+
+Redirects return `302` with `Cache-Control: no-store` so destination updates take effect
+without a cached permanent redirect. Unknown paths still return 404. Visible project domains
+and structured-data URLs are derived from the same destination map.

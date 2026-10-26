@@ -1,3 +1,4 @@
+import { destinations } from '@/content/links'
 import { kiln, projects, site, socials } from '@/content/site'
 
 const home = `${site.url}/`
@@ -71,17 +72,19 @@ function structuredData() {
         worksFor: {
           '@type': 'Organization',
           name: 'Marco Technology Consulting, Inc.',
-          url: marco.url,
+          url: destinations[marco.url],
         },
         sameAs: [
-          ...socials.filter((social) => social.id !== 'discord').map((social) => social.url),
-          modrinth.url,
+          ...socials
+            .filter((social) => social.id !== 'discord')
+            .map((social) => destinations[social.url]),
+          destinations[modrinth.url],
         ],
         knowsAbout: ['Game servers', 'Minecraft', 'Self-hosting', 'Web development'],
         subjectOf: {
           '@type': 'SoftwareApplication',
           name: kiln.name,
-          url: kiln.url,
+          url: destinations[kiln.url],
           description: kiln.description,
           applicationCategory: 'DeveloperApplication',
           operatingSystem: 'Linux',

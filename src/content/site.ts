@@ -1,3 +1,5 @@
+import { linkLabel, type LinkPath } from './links'
+
 export const site = {
   url: 'https://quartzdev.gg',
   siteName: 'quartzdev.gg',
@@ -27,16 +29,16 @@ export const site = {
 }
 
 export type SocialId = 'github' | 'x' | 'discord'
-export type Social = { id: SocialId; label: string; handle: string; url: string }
+export type Social = { id: SocialId; label: string; handle: string; url: LinkPath }
 
 export const socials: Social[] = [
-  { id: 'github', label: 'GitHub', handle: 'QarthO', url: 'https://github.com/QarthO' },
-  { id: 'x', label: 'X', handle: 'quartzdevgg', url: 'https://x.com/quartzdevgg' },
+  { id: 'github', label: 'GitHub', handle: 'QarthO', url: '/github' },
+  { id: 'x', label: 'X', handle: 'quartzdevgg', url: '/x' },
   {
     id: 'discord',
     label: 'Discord',
     handle: 'qartho',
-    url: 'https://discord.gg/gu76VAtSK5',
+    url: '/discord',
   },
 ]
 
@@ -46,7 +48,7 @@ export type Project = {
   name: string
   description: string
   label: string
-  url: string
+  url: LinkPath
   /** Lamp border, glow, and link color. */
   color: string
 }
@@ -56,34 +58,34 @@ export const kiln = {
   tagline: 'The panel for everything.',
   description:
     '100% free, open-source panel for your VPS, Docker, Apps, Game Servers and more, all on your own machines.',
-  url: 'https://kiln.site',
-  source: 'https://github.com/kiln-site/kiln',
+  url: '/kiln',
+  source: '/kiln-source',
   color: '#e9842b',
-}
+} as const
 
 export const projects: Project[] = [
   {
     id: 'marco',
     name: 'Marco',
     description: 'My company. Websites, hosting, and IT for small businesses.',
-    label: 'getbacktobiz.com',
-    url: 'https://getbacktobiz.com',
+    label: linkLabel('/marco'),
+    url: '/marco',
     color: '#4b9a51',
   },
   {
     id: 'modrinth',
     name: 'Minecraft Software',
     description: 'Building and maintaining popular projects like HuskHomes.',
-    label: 'modrinth.com/user/QarthO',
-    url: 'https://modrinth.com/user/QarthO',
+    label: linkLabel('/modrinth'),
+    url: '/modrinth',
     color: '#4b9a51',
   },
   {
     id: 'hobby',
     name: 'Side projects',
     description: 'Cool tech I build for fun: homelab tools, games, and more.',
-    label: 'github.com/QarthO',
-    url: 'https://github.com/QarthO?tab=repositories',
+    label: linkLabel('/projects'),
+    url: '/projects',
     color: '#edece9',
   },
 ]

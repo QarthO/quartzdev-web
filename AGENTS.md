@@ -24,6 +24,8 @@ Verify design or visual changes in the T3 Preview Browser.
 | Path                       | Role                                                   |
 | -------------------------- | ------------------------------------------------------ |
 | `src/content/site.ts`      | Traits, socials, Kiln, other projects, SEO copy        |
+| `src/content/links.ts`     | Single source for outbound destinations and aliases    |
+| `src/app/$link.tsx`        | Temporary redirects for the allowed link aliases       |
 | `src/app/index.tsx`        | The page                                               |
 | `src/app/__root.tsx`       | Document shell, Geist font face, icons, 404            |
 | `src/lib/seo.ts`           | Title, meta, Open Graph/Twitter tags, JSON-LD          |
