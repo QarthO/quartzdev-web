@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url'
 
 import { Resvg } from '@resvg/resvg-js'
 import opentype from 'opentype.js'
-import { siModrinth } from 'simple-icons'
+import { siDiscord, siGithub, siModrinth, siX } from 'simple-icons'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const pub = (file) => path.join(root, 'public', file)
@@ -78,21 +78,37 @@ function inline(file, x, y, size) {
 const left = 80
 const logoSize = 100
 const nameSize = 148
-const nameBaseline = 262
+const nameBaseline = 234
 const capTop = nameBaseline - 0.71 * nameSize
 const logoY = Math.round((capTop + nameBaseline) / 2 - logoSize / 2)
 const name = outline(black, 'Derek', left + logoSize + 30, nameBaseline, nameSize, -0.055)
 
 // Two lines so the location stays clear of the divider.
 const tagSize = 30
-const tagBaseline = 328
+const tagBaseline = 300
 const aka = outline(medium, 'aka ', left, tagBaseline, tagSize)
 const handle = outline(semibold, 'QarthO', aka.end, tagBaseline, tagSize)
 const rest = outline(medium, 'Based in the greater Atlanta area', left, tagBaseline + 42, tagSize)
 
+// Handles, each with its platform icon, lined up with "and much more…" on the right.
+const handleSize = 24
+const handleBaseline = 392
+const iconSize = 22
+let handleX = left
+const handles = [
+  { path: siGithub.path, color: colors.ink, text: '@QarthO' },
+  { path: siX.path, color: colors.ink, text: '@quartzdevgg' },
+  { path: siDiscord.path, color: '#5865f2', text: '@qartho' },
+].map((item) => {
+  const iconX = handleX
+  const text = outline(medium, item.text, iconX + iconSize + 10, handleBaseline, handleSize)
+  handleX = text.end + 30
+  return { ...item, iconX, text }
+})
+
 // ---------- Right: what I build ----------
 
-const divider = Math.round(Math.max(name.end, rest.end) + 64)
+const divider = Math.round(Math.max(name.end, rest.end, handleX - 30) + 64)
 const listX = divider + 64
 const tile = 56
 const labelSize = 32
@@ -147,6 +163,13 @@ ${inline('logos/quartzdev.svg', left, logoY, logoSize)}
 <path fill="${colors.ink}" d="${name.d}"/>
 <path fill="${colors.muted}" d="${aka.d}${rest.d}"/>
 <path fill="${colors.ink}" d="${handle.d}"/>
+${handles
+  .map(
+    (item) =>
+      `<g transform="translate(${item.iconX} ${handleBaseline - iconSize + 3}) scale(${iconSize / 24})"><path fill="${item.color}" d="${item.path}"/></g>
+<path fill="${colors.ink}" d="${item.text.d}"/>`,
+  )
+  .join('\n')}
 <path d="M${divider} 104V376" stroke="#fff" stroke-opacity="0.12" stroke-width="2"/>
 ${rows
   .map(
