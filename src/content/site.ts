@@ -11,12 +11,17 @@ export const site = {
 }
 
 export type SocialId = 'github' | 'x' | 'discord'
-export type Social = { id: SocialId; label: string; url: string }
+export type Social = { id: SocialId; label: string; handle: string; url: string }
 
 export const socials: Social[] = [
-  { id: 'github', label: 'GitHub', url: 'https://github.com/QarthO' },
-  { id: 'x', label: 'X', url: 'https://x.com/quartzdevgg' },
-  { id: 'discord', label: 'Discord', url: 'https://discord.gg/gu76VAtSK5' },
+  { id: 'github', label: 'GitHub', handle: 'QarthO', url: 'https://github.com/QarthO' },
+  { id: 'x', label: 'X', handle: 'quartzdevgg', url: 'https://x.com/quartzdevgg' },
+  {
+    id: 'discord',
+    label: 'Discord',
+    handle: 'qartho',
+    url: 'https://discord.gg/gu76VAtSK5',
+  },
 ]
 
 export type ProjectId = 'kiln' | 'marco' | 'modrinth' | 'consulting'
@@ -51,7 +56,7 @@ export const projects: Project[] = [
   },
   {
     id: 'modrinth',
-    name: 'Minecraft plugins',
+    name: 'Minecraft Software',
     description: 'Paper plugins and GriefPrevention add-ons, published on Modrinth.',
     label: 'modrinth.com/user/QarthO',
     url: 'https://modrinth.com/user/QarthO',

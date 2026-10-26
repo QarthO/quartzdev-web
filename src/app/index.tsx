@@ -53,9 +53,15 @@ function Home() {
         <ul className="socials">
           {socials.map((social) => (
             <li key={social.id}>
-              <a href={social.url} target="_blank" rel="noopener noreferrer me">
+              <a
+                className={`social-${social.id}`}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer me"
+                aria-label={`${social.label}: ${social.handle}`}
+              >
                 <SocialIcon id={social.id} />
-                {social.label}
+                {social.handle}
               </a>
             </li>
           ))}

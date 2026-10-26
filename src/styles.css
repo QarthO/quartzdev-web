@@ -148,6 +148,20 @@ body {
 .socials .icon {
   width: 17px;
   height: 17px;
+  color: var(--icon);
+}
+
+/* Brand colors; GitHub and X are black marks, so they stay white on this background. */
+.social-github {
+  --icon: #fff;
+}
+
+.social-x {
+  --icon: #fff;
+}
+
+.social-discord {
+  --icon: #5865f2;
 }
 
 .socials a:hover {
@@ -493,8 +507,20 @@ body {
     margin-top: 16px;
   }
 
+  .socials {
+    gap: 6px;
+  }
+
   .socials a {
+    gap: 7px;
     height: 36px;
+    padding: 0 10px 0 9px;
+    font-size: 0.875rem;
+  }
+
+  .socials .icon {
+    width: 16px;
+    height: 16px;
   }
 
   .node.featured {
