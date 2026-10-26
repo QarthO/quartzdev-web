@@ -6,9 +6,9 @@
   --ink: #edece9;
   --muted: #8f8b86;
   --line: #242424;
-  --dust-off: #2a0b0d;
-  --dust: #ff1a1a;
-  --glow: rgb(255 26 26 / 0.5);
+  --dust-off: #260a0c;
+  --dust: #d4161c;
+  --glow: rgb(212 22 28 / 0.5);
 
   --pad-x: clamp(20px, 5vw, 72px);
   --pad-y: clamp(20px, 5vh, 56px);
@@ -75,6 +75,8 @@ img {
 /* ---------- Page ---------- */
 
 .page {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: clamp(32px, 6vw, 96px);
@@ -85,11 +87,26 @@ img {
   padding: var(--pad-y) var(--pad-x);
 }
 
+/* Grid over a faint red glow, with a layer of film grain on top. */
 body {
+  position: relative;
+  min-height: 100svh;
   background:
     linear-gradient(rgb(255 255 255 / 0.026) 1px, transparent 1px) 0 0 / 32px 32px,
     linear-gradient(90deg, rgb(255 255 255 / 0.026) 1px, transparent 1px) 0 0 / 32px 32px,
+    radial-gradient(ellipse 55% 65% at 78% 42%, rgb(170 14 20 / 0.16), transparent 70%),
+    radial-gradient(ellipse 45% 50% at 8% 100%, rgb(150 12 18 / 0.1), transparent 70%),
     #000;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  content: '';
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
 }
 
 /* ---------- Identity ---------- */
@@ -192,7 +209,7 @@ body {
 .quartzdev-logo {
   width: calc(var(--bus) * 2 + var(--track));
   height: calc(var(--bus) * 2 + var(--track));
-  box-shadow: 0 0 22px rgb(255 26 26 / 0.35);
+  box-shadow: 0 0 22px rgb(212 22 28 / 0.35);
 }
 
 .circuit ul {
@@ -279,6 +296,17 @@ body {
   animation: lamp-on 260ms ease-out calc(var(--start) + var(--i) * var(--step) + var(--step) * 0.8)
     backwards;
   transition: box-shadow 160ms;
+}
+
+/* A lamp with no logo shows a lit core instead. */
+.lamp:empty::before {
+  width: 42%;
+  height: 42%;
+  content: '';
+  background: var(--brand);
+  box-shadow: 0 0 16px var(--brand);
+  animation: logo-on 260ms ease-out calc(var(--start) + var(--i) * var(--step) + var(--step) * 0.8)
+    backwards;
 }
 
 .lamp .logo {

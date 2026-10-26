@@ -24,7 +24,7 @@ export const socials: Social[] = [
   },
 ]
 
-export type ProjectId = 'kiln' | 'marco' | 'modrinth' | 'consulting'
+export type ProjectId = 'kiln' | 'marco' | 'modrinth' | 'hobby'
 export type Project = {
   id: ProjectId
   name: string
@@ -63,11 +63,12 @@ export const projects: Project[] = [
     color: '#4b9a51',
   },
   {
-    id: 'consulting',
-    name: 'Minecraft server consultant',
-    description: 'Setup, performance tuning, and plugin work for Minecraft servers.',
-    label: 'Ask on Discord',
-    url: 'https://discord.gg/gu76VAtSK5',
-    color: '#4b9a51',
+    id: 'hobby',
+    name: 'Side projects',
+    description: 'Cool tech I build for fun: homelab tools, games, and more.',
+    label: 'github.com/QarthO',
+    url: 'https://github.com/QarthO?tab=repositories',
+    // No logo: a bare redstone lamp, lit in the line's own red.
+    color: '#d4161c',
   },
 ]
